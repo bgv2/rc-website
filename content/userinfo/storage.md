@@ -21,7 +21,7 @@ aliases = [ "/storage" ]
 ![Standard Storage](https://img.shields.io/badge/dynamic/json?color=color&label=Research%20Standard%20Storage&query=message&url=https%3A%2F%2Ftja4lfp3da.execute-api.us-east-1.amazonaws.com%2Fapi%2Fbadge%2Fstandard&style=for-the-badge)
 -->
 
-<p class="lead">There are a variety of options for storing research data at UVA. Public, internal use, and sensitive data storage systems can be accessed from the <a href="/userinfo/hpc">Rivanna and Afton</a> high performance computing systems. Highly sensitive data can be stored and accessed within the <a href="/userinfo/ivy">Ivy</a> secure computing environment. University Information Security provides an overview of the <a href=https://security.virginia.edu/university-data-protection-standards>data sensitivity classifications</a>, while our <a href="../storage/data-sensitivity"> Data Sensitivity and Research Computing Systems table </a> specifies where each type of data can be stored or analyzed in compliance with regulations.</p>  
+<p class="lead">There are a variety of options for storing research data at UVA. Public, internal use, and sensitive data storage systems can be accessed from the <a href="/userinfo/hpc">Rivanna and Afton</a> high performance computing systems. Highly sensitive data can be stored and accessed within the <a href="/userinfo/ivy">Ivy</a> secure computing environment. University Information Security provides an overview of the <a href=https://security.virginia.edu/university-data-protection-standards>data sensitivity classifications</a>, while our <a href="../storage/data-sensitivity"> Data Sensitivity and Research Computing Systems table </a> specifies where each type of data can be stored or analyzed in compliance with regulations. To see more data storage options available on Grounds please visit the <a href=https://data-storage-finder.library.virginia.edu/?mtm_campaign=RC&mtm_kwd=website>UVA Data Storage Finder</a>.</p>  
 
 {{% highlight %}}
 
@@ -84,13 +84,13 @@ aliases = [ "/storage" ]
 [Highly sensitive data (HSD)](https://security.virginia.edu/definitions/highly-sensitive-data) are data that require restrictions on access under the law or that may be protected from release in accordance with applicable law or regulation. HSD includes personal information that can lead to identity theft or health information that reveals an individual's health condition and/or medical history. Examples of HSD include, but are not limited to: 
 
 - Personally identifying information (PII) is any information that can be used to identify a person. Examples of PII include social security number, passport number, driver’s license number, military identification number, or biometric records (e.g. photographic facial images, fingerprints, voice signature, etc.).
-- Health information that reveals an individual’s health condition and/or medical history, including information defined by the Health Insurance Portability and Accountability Act (HIPAA)
+- Health information that reveals an individual’s health condition and/or medical history, including information defined by the Health Insurance Portability and Accountability Act (HIPAA). Note: Because Research Computing is outside the UVA Health covered entity, only health sciences research data collected under an IRB-HSR approved protocol with a waiver of HIPAA authorization may be stored on Ivy.
 
 {{< storage_main_page_second >}}
 
-Researchers who request space on High-Security Research Standard must first request an Ivy account using the [Ivy request form](https://services.rc.virginia.edu/ivyvm). Further information on Ivy and the High-Security Research storage can be found [here](/userinfo/storage/sensitive-data/#hs-standard-storage).
+Researchers who request space on High-Security Research Project or Standard must first request an Ivy account using the [Ivy request form](https://services.rc.virginia.edu/ivyvm). Further information on Ivy and the High-Security Research storage can be found [here](/userinfo/storage/sensitive-data/#hs-standard-storage).
 
-High-Security Research Standard Storage is accessible by using [Globus](/userinfo/globus/) and connecting to the High-Security DTN.
+High-Security Research Storage is accessible by using [Globus](/userinfo/globus/) and connecting to the High-Security DTN.
 
 ## Ivy Central Storage (ICS)
 

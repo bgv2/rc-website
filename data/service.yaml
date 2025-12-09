@@ -35,7 +35,7 @@ service:
         su_expiration: "Never"
       - type: "Instructional"
         link: "/userinfo/hpc/access/#instructional-allocations"
-        su_limits: "100,000"
+        su_limits: "1,000,000"
         cost: "Free"
         su_expiration: "2 weeks after last training session"
   - name: "Storage"
@@ -56,7 +56,7 @@ service:
         access: "Rivanna, Afton, <a href=\"/userinfo/howtos/storage/drive-mapping/\">mountable on local workstation</a>"
         filesystem_location: "<code>/project</code>"
         highly-sens-ds-compliant: "No"
-        use_cases: "Ideal for long-term storage of data to be accessed from Rivanna. Research Project storage is ideal for sharing data within a research group and for running jobs with smaller files."
+        use_cases: "<code>/project</code> storage is best suited for data accessible to Rivanna/Afton, shared within a research group, and for researchers who are actively running Slurm jobs and need more capacity than <code>/home</code> provides."
       - name: "Research Standard"
         security: "Standard"
         cost: "$45/TB per year (Upon request, each PI with an RC account will be granted up to 10 TB of Research Standard Storage at no charge<sup>1</sup>)"
@@ -67,10 +67,21 @@ service:
         access: "Rivanna, Afton, <a href=\"/userinfo/howtos/storage/drive-mapping/\">mountable on local workstation</a>"
         filesystem_location: "<code>/standard</code>"
         highly-sens-ds-compliant: "No"
-        use_cases: "Budget solution for storing data that can be accessed by a personal computer or Rivanna. It is not recommended to run Slurm jobs against research standard storage unless absolutely necessary. File operations on Research Standard storage are slower than on Rivanna <code>/home</code>, <code>/scratch</code>, or <code>Research Project</code> storage."
+        use_cases: "<code>/standard</code> storage is best suited for data that needs to be accessible to a workstation or Rivanna/Afton, shared within a research group, and for longer-term storage of Slurm job outputs completed in <code>/scratch</code>. It is not recommended to run Slurm jobs directly against <code>/standard</code> as file operations are slower compared to <code>/home</code>, <code>/scratch</code>, and <code>/project</code> storage."
+      - name: "High-Security Research Project"
+        security: "High"
+        cost: "$70/TB/year"
+        quota: "1TB increments"
+        snapshots: "Daily snapshots for 1 week"
+        replication: "No"
+        backup: "No"
+        access: "Ivy Virtual Machine"
+        filesystem_location: "<code>/project</code>"
+        highly-sens-ds-compliant: "Yes"
+        use_cases: "High-performance storage for computational workflows involving highly sensitive data. Files stored in High-Security Research Project are read-write only."
       - name: "High-Security Research Standard"
         security: "High"
-        cost: "$45/TB/year"
+        cost: "$45/TB/year (Each Ivy VM includes 1 TB of High-Security Research Standard storage at no additional cost.)"
         quota: "1TB increments"
         snapshots: "No"
         replication: "No"
@@ -301,6 +312,42 @@ hardware:
       su_per_cpu_hour: 0.058
       su_per_gb_hour: 0.005
       su_per_gpu_hour: 2.096
+  
+rio_hardware:
+  - columns:
+    - "System"
+    - "Cores/Node"
+    - "Memory/Node"
+    - "Specialty Hardware"
+    - "GPU memory/Device"
+    - "GPU devices/Node"
+    - "# of Nodes"
+    options:
+    # H200
+    - system: "Rio"
+      cores_per_node: 96
+      memory_per_node: "2TB"
+      specialty_hardware: "GPU: H200"
+      gpu_memory_per_device: "141GB"
+      gpu_devices_per_node: 8
+      number_of_nodes: 1
+    # CPU Nodes
+    - system: "Rio"
+      cores_per_node: 40
+      memory_per_node: "375GB"
+      specialty_hardware: "-"
+      gpu_memory_per_device: "-"
+      gpu_devices_per_node: "-"
+      number_of_nodes: 34
+    # L40s
+    - system: "Rio"
+      cores_per_node: 32 
+      memory_per_node: "750GB"
+      specialty_hardware: "GPU: L40s"
+      gpu_memory_per_device: "48GB" 
+      gpu_devices_per_node: 8
+      number_of_nodes: 4
+
 
 job_queues:
   - columns:
@@ -318,7 +365,7 @@ job_queues:
       purpose: "For jobs on a single compute node"
       max_time_per_job: "7 days"
       max_nodes_per_job: 1
-      max_cores_per_job:
+      max_cores_per_job: 96
       max_cores_per_node: 96 
       default_mem_per_core: "9GB"
       max_mem_per_node_per_job: "1462GB"
@@ -340,6 +387,15 @@ job_queues:
       max_cores_per_node: 128
       default_mem_per_core: "6GB"
       max_mem_per_node_per_job: "1953GB"
+    # gpu-mig partition
+    - partition: "gpu-mig"
+      purpose: "For smaller GPU jobs"
+      max_time_per_job: "3 days"
+      max_nodes_per_job: 1
+      max_cores_per_job: 2
+      max_cores_per_node: 14 MIGs/user
+      default_mem_per_core: "4000MB"
+      max_mem_per_node_per_job: "30000MB"
     # interactive partition
     - partition: "interactive"
       purpose: "For quick interactive sessions"

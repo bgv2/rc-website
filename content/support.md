@@ -51,7 +51,7 @@ var user_token = getCookie("__user_token");
   <div class="card image-shadow col-md-4 p-3 mb-4 bg-white rounded" style="border:solid 1px #ccc;"">
     <div class="card-body">
       <h5 class="card-title">Ivy Projects</h5>
-      <p class="card-text">Perform your research on a HIPAA-compliant computing platform.</p>
+      <p class="card-text">Perform your research on a secure computing platform for highly-sensitive data.</p>
       <div class="support-tiles">
         <a href="https://services.rc.virginia.edu/"><button class="btn btn-primary btn-sm">Set up a Project</button></a>
       </div>
@@ -159,7 +159,7 @@ The [training material](https://learning.rc.virginia.edu/tutorials/hpc-intro/) i
 
 <div class="alert alert-success" role="alert">
 <!-- <div style="float:right;margin-top:-10px;"><a href="https://visitormap.virginia.edu/#/-78.50123/38.03199/17" target="_new"><img src="/images/navigation-40x40.png" alt="Map this location" /></a></div> -->
-<b>Wednesdays 3:00-4:00pm </b>
+<b>Wednesdays 3:00-4:00pm</b>
 <a></a>
 <a style="float:right;" href={{% intro-rivanna-request %}}><button  class="btn btn-primary btn-sm">Sign up for an "Intro to HPC" 
 session</button></a>
