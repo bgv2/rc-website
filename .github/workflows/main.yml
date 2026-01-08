@@ -6,52 +6,14 @@ on:
     - 'main'
     - 'master'
     - 'staging'
-  schedule:
-    - cron: '0 8 * * *'
   workflow_dispatch:
 
 jobs:
-  Build:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: nelonoel/branch-name@v1
-      env:
-        ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-    - run: echo ${BRANCH_NAME}
-    - name: Checkout repository
-      uses: actions/checkout@v4
-    - name: Set ENV vars
-      env:
-        BUCKET_NAME: ${{ secrets.BUCKET_NAME }}
-        BUCKET_NAME_STAGING: ${{ secrets.BUCKET_NAME_STAGING }}
-        DISTRIBUTION_ID: ${{ secrets.DISTRIBUTION_ID }}
-        STAGING_DISTRIBUTION_ID: ${{ secrets.STAGING_DISTRIBUTION_ID }}
-        MAX_AGE: ${{ secrets.MAX_AGE }}
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      run: echo $BUCKET_NAME
-    - name: Login to GHCR
-      uses: docker/login-action@v3
-      with:
-        registry: ghcr.io
-        username: ${{ secrets.GHCR_USERNAME }}
-        password: ${{ secrets.GHCR_PAT }}
-    - name: Build Docker image
-      uses: docker/build-push-action@v6
-      with:
-        context: .
-        file: ./docker/Dockerfile
-        push: false
-        tags: ghcr.io/uvarc/rc-website:${{ github.ref_name }}
-        target: base
-    - name: Run HUGO container
-      run: docker run -e BRANCH=$BRANCH_NAME -e BUCKET_NAME=${{ secrets.BUCKET_NAME }} -e DISTRIBUTION_ID=${{ secrets.DISTRIBUTION_ID }} -e BUCKET_NAME_STAGING=${{ secrets.BUCKET_NAME_STAGING }} -e STAGING_DISTRIBUTION_ID=${{ secrets.STAGING_DISTRIBUTION_ID }} -e AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }} -e AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }} -e MAX_AGE=${{ secrets.MAX_AGE }} ghcr.io/uvarc/rc-website:${{ github.ref_name }} /root/build-site.sh
-  #Broken Link Checker using Broken Link Checker Action provided by technote-space
+    #Broken Link Checker using Broken Link Checker Action provided by technote-space
   # -exclude excludes any vpn links or links that are prone to false negatives
   Broken_Link_Checker:
     name: Broken Link Check
     runs-on: ubuntu-latest
-    needs: Build
     continue-on-error: true
     steps:
       - name: Set URL based on branch
@@ -78,38 +40,3 @@ jobs:
             --skip-tls-verification
             --timeout=50
             --exclude="(https://xdmod2.hpc.virginia.edu|https://groups.identity.virginia.edu|https://fastx.hpc.virginia.edu|https://uvarc.io/support|https://services.rc.virginia.edu/|https://mygroups.virginia.edu/groups/)"
-    
-  Slack:
-    name: Error Notification
-    if: ${{ failure() }}
-    needs: Build
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Slack Notification
-      uses: rtCamp/action-slack-notify@v2
-      env:
-        SLACK_CHANNEL: website
-        SLACK_COLOR: '#3278BD'
-        SLACK_ICON: https://staging.rc.virginia.edu/images/logos/github-icon-48px.png
-        SLACK_TITLE: ERROR - GitHub CI
-        SLACK_MESSAGE: 'Build Error :boom:'
-        SLACK_USERNAME: ci-bot
-        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-  Slack2:
-    name: Build Notification
-    if: ${{ success() }}
-    needs: Build
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Slack Notification
-      uses: rtCamp/action-slack-notify@v2
-      env:
-        SLACK_CHANNEL: dev
-        SLACK_COLOR: '#3278BD'
-        SLACK_ICON: https://ca.slack-edge.com/T3NTLDW3S-U01TZJS6EJ3-c35d057d96f4-72
-        SLACK_TITLE: Build SUCCESS - GitHub CI
-        SLACK_MESSAGE: ':ballot_box_with_check: Successful build of the ${{ github.ref }} branch of the RC website.'
-        SLACK_USERNAME: Success Bot
-        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
