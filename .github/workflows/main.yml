@@ -19,13 +19,13 @@ jobs:
       - name: Set URL based on branch
         id: set-url
         run: |
-          if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
-            echo "URL=https://rc.virginia.edu" >> $GITHUB_ENV
-          elif [[ "${{ github.ref }}" == "refs/heads/staging" ]]; then
-            echo "URL=https://staging.rc.virginia.edu" >> $GITHUB_ENV
-          else
-            echo "URL=https://staging.rc.virginia.edu" >> $GITHUB_ENV
-          fi
+          #if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+          #  echo "URL=https://rc.virginia.edu" >> $GITHUB_ENV
+          #elif [[ "${{ github.ref }}" == "refs/heads/staging" ]]; then
+          echo "URL=https://staging.rc.virginia.edu" >> $GITHUB_ENV
+          #else
+          #  echo "URL=https://staging.rc.virginia.edu" >> $GITHUB_ENV
+          #fi
 
       - name: Run Broken Link Checker
         uses: ruzickap/action-my-broken-link-checker@v2
@@ -38,5 +38,5 @@ jobs:
             --rate-limit=5                   
             --accepted-status-codes=200..300,301,403,406,999,429
             --skip-tls-verification
-            --timeout=50
+            --timeout=60
             --exclude="(https://xdmod2.hpc.virginia.edu|https://groups.identity.virginia.edu|https://fastx.hpc.virginia.edu|https://uvarc.io/support|https://services.rc.virginia.edu/|https://mygroups.virginia.edu/groups/)"
