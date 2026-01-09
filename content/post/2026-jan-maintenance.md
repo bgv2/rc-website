@@ -9,7 +9,7 @@ tags = ["rivanna", "afton"]
 categories = ["feature"]
 +++
 
-{{< alert-green >}}The UVA HPC systems, Afton/Rivanna, will be unavailable for maintenance on <strong>Tuesday, Janurary 6, 2026</strong> beginning at 6 am.{{< /alert-green >}}
+{{< alert-green >}}The UVA HPC systems, Afton/Rivanna, will be unavailable for maintenance on <strong>Tuesday, January 6, 2026</strong> beginning at 6 am.{{< /alert-green >}}
 
 All systems are expected to return to service by **Wednesday, January 7** at 6 am.
 
@@ -49,18 +49,21 @@ New modules:
 - nvhpc/25.11
 - nvompi/25.11_5.0.7
 - pytorch/2.9.0
+- qiime2/2025.10
+- quantumespresso/7.5
 - ucx-cuda/1.19.0-CUDA-13.0.2 
 
 {{< table title="replacement" class="table table-striped" >}}
 | Module | Remove | Replace with |
 |---|---|---|
-|atat   |3.36   |3.50 |
-|cc3d   |4.2.5  |4.7.0 |
-|cuda   |11.4.2 |11.8.0+ |
-|gurobi |10.0.1, 11.0.0 |13.0.0 |
-|isoseqenv|py3.7|isoseq/4.3.0 |
-|lammps |2Aug2023-cpu | 22Jul2025_update1 |
-|mumax3 |3.10   |3.11.1 |
+|alphafold|3.0.0  |3.0.1 |
+|atat     |3.36   |3.50 |
+|cc3d     |4.2.5  |4.7.0 |
+|cuda     |11.4.2 |11.8.0+ |
+|gurobi   |10.0.1, 11.0.0 |13.0.0 |
+|isoseqenv|py3.7  |isoseq/4.3.0 |
+|lammps   |2Aug2023-cpu | 22Jul2025_update1 |
+|mumax3   |3.10   |3.11.1 |
 |quantumespresso|6.4.1|7.2.0+ |
 {{< /table >}}
 
